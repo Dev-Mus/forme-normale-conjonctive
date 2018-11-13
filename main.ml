@@ -19,7 +19,12 @@ let rec fnc  term =
 		|NEG ET(x,y) 		 ->   (
 						 fnc (OU( (NEG x), (NEG y) ) );
 						)
-
+    |NEG IMPLIQ(x,y) -> (
+             fnc ( ET( x, (NEG y)) );
+						)          
+		|NEG NEG x			 -> ( 
+						 fnc x;
+						)
 		|OU(x,y) 		 ->   (
              print_string "(";
              fnc x;
@@ -35,7 +40,7 @@ let rec fnc  term =
              print_string ")"; 
 						)             
 		|IMPLIQ(x,y) -> (
-             fnc ( OU((NEG x),y) );
+             fnc ( OU( (NEG x), y) );
 						)             
 		|NEG x			 -> (
 						 print_string "~"; 
