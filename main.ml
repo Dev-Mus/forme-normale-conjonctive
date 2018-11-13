@@ -12,6 +12,14 @@ let rec fnc  term =
 						 print_string "vrai";
 		|Faux  			 ->     
 						 print_string "faux";
+		|NEG Vrai 			 ->      
+						 print_string "faux";
+		|NEG Faux  			 ->     
+						 print_string "vrai";
+		|OU( (ET(x,y)), z) -> (
+						 fnc( ET( OU(x,z), OU(y,z) ) );			
+						)
+
 		|NEG OU(x,y) 		 ->   (
 						 fnc (ET( (NEG x), (NEG y) ) );
 						)
