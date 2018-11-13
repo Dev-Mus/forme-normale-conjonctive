@@ -12,30 +12,34 @@ let rec fnc  term =
 						 print_string "vrai";
 		|Faux  			 ->     
 						 print_string "faux";
+		|NEG OU(x,y) 		 ->   (
+						 fnc (ET( (NEG x), (NEG y) ) );
+						)
+
+		|NEG ET(x,y) 		 ->   (
+						 fnc (OU( (NEG x), (NEG y) ) );
+						)
+
 		|OU(x,y) 		 ->   (
              print_string "(";
-             print_term x;
+             fnc x;
              print_string "#";
-             print_term y;
+             fnc y;
              print_string ")"; 
 						)             
 		|ET(x,y)  	 ->	(
              print_string "("; 
-             print_term x;
+             fnc x;
              print_string "&";
-             print_term y;
+             fnc y;
              print_string ")"; 
 						)             
 		|IMPLIQ(x,y) -> (
-             print_string "("; 
-             print_term x;
-             print_string "->";
-             print_term y;
-             print_string ")";
+             fnc ( OU((NEG x),y) );
 						)             
 		|NEG x			 -> (
 						 print_string "~"; 
-						 print_term x
+						 fnc x;
 						)
 ;;
  
@@ -46,7 +50,9 @@ let boucle in_channel =
 		Prop_parser.programme Prop_lexer.token lexbuffer in
 			let p = lire_prop_expr () in 
 				let k p = 			
-			  print_string "\n\t**********\n";
+			  print_string "\n\t**********  fnc \n";
+				fnc p;
+		  	print_string "\n\t********** print_term\n";
 				print_term p;
 		  	print_string "\n\t**********\n";	in 
 					k p ;

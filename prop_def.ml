@@ -5,9 +5,9 @@ type proposition =
 Vrai
   |Faux
   |Var of string 
-  | ET of proposition * proposition
-  | NEG of proposition 
-  | OU of proposition * proposition
+  |ET of proposition * proposition
+  |NEG of proposition 
+  |OU of proposition * proposition
   |IMPLIQ of proposition * proposition
 ;;
 
